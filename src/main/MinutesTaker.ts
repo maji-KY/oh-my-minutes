@@ -5,16 +5,26 @@ export default class MinutesTaker {
 
   readonly rec: any;
   isStarted: boolean;
+  isRecRunning: boolean;
 
   constructor(callback: Function) {
     const rec = new webkitSpeechRecognition(); // eslint-disable-line new-cap
     rec.continuous = true;
-    rec.interimResults = false;
+    rec.interimResults = true;
     rec.lang = "ja-JP";
     rec.maxAlternatives = 3;
 
-    rec.onstart = () => { console.log("on start") };
-    rec.onend = () => { console.log("on end") };
+    rec.onstart = () => {
+      console.log("on start");
+      this.isRecRunning = true;
+    };
+    rec.onend = () => {
+      console.log("on end");
+      this.isRecRunning = false;
+      if (this.isStarted) {
+        this.start();
+      }
+    };
 
     rec.onspeechstart = () => { console.log("on speech start") };
     rec.onspeechend = () => { console.log("on speech end") };
@@ -40,18 +50,26 @@ export default class MinutesTaker {
     };
     this.rec = rec;
     this.isStarted = false;
+    this.isRecRunning = false;
   }
 
   start() {
-    console.log("MinutesTaker start");
-    !this.isStarted ? this.rec.start() : "";
-    this.isStarted = true;
+    console.log("start called");
+    console.log(`this.isRecRunning: ${this.isRecRunning}`);
+    console.log(`this.isStarted: ${this.isStarted}`);
+    if (!this.isRecRunning) {
+      if (!this.isStarted) {
+        console.log("MinutesTaker start");
+        this.isStarted = true;
+      }
+      this.rec.start();
+    }
   }
 
   stop() {
     console.log("MinutesTaker stop");
-    this.rec.stop();
     this.isStarted = false;
+    this.rec.stop();
   }
 
 }
