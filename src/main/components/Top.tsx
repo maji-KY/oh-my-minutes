@@ -6,6 +6,7 @@ import { Form, Field } from "react-final-form";
 import { StyleRulesCallback, WithStyles } from "@material-ui/core";
 import withStyles from "@material-ui/core/styles/withStyles";
 
+import Paper from '@material-ui/core/Paper';
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button/Button";
 import List from "@material-ui/core/List";
@@ -36,6 +37,9 @@ function TopComponent(props: StateProps & DispatchProps & WithStyles) {
   const { createNewMinute } = props;
   return (
     <div className={classes.root}>
+      <Paper className={classes.notice} elevation={1}>
+        Chromeでのみ動作します
+      </Paper>
       <Form
         onSubmit={(x: any, { reset }) => {
           console.log(x);
@@ -95,6 +99,11 @@ const styles: StyleRulesCallback<string> = theme => ({
   "button": {
     "marginTop": theme.spacing.unit,
     "marginBottom": theme.spacing.unit
+  },
+  "notice": {
+    "margin": theme.spacing.unit,
+    "padding": theme.spacing.unit,
+    "font-size": 16
   }
 });
 

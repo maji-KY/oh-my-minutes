@@ -3,6 +3,7 @@ import * as React from "react";
 import { StyleRulesCallback, WithStyles } from "@material-ui/core";
 import withStyles from "@material-ui/core/styles/withStyles";
 import Button from "@material-ui/core/Button/Button";
+import Paper from '@material-ui/core/Paper';
 
 import DeleteIcon from "@material-ui/icons/Delete";
 import KeyboardVoiceIcon from "@material-ui/icons/KeyboardVoice";
@@ -29,6 +30,9 @@ function MinuteComponent(props: StateProps & DispatchProps & WithStyles) {
   const [ deleteDialogOpened, setDeleteDialogOpened ] = React.useState(false);
   return (
     <div>
+      <Paper className={classes.notice} elevation={1}>
+        データはブラウザのLocalStorageに保存されます
+      </Paper>
       <Button color="secondary" onClick={() => recStart()}><KeyboardVoiceIcon className={classes.leftIcon} />Rec Start</Button>
       <Button onClick={() => recStop()}><StopIcon className={classes.leftIcon} />Rec Stop</Button>
       <Button onClick={() => setDeleteDialogOpened(true)}><DeleteIcon className={classes.leftIcon} />Clear</Button>
@@ -49,6 +53,11 @@ const styles: StyleRulesCallback<string> = theme => ({
   },
   "leftIcon": {
     "marginRight": theme.spacing.unit
+  },
+  "notice": {
+    "margin": theme.spacing.unit,
+    "padding": theme.spacing.unit,
+    "font-size": 16
   }
 });
 
