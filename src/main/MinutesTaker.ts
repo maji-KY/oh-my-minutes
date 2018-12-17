@@ -10,7 +10,7 @@ export default class MinutesTaker {
   constructor(callback: Function) {
     const rec = new webkitSpeechRecognition(); // eslint-disable-line new-cap
     rec.continuous = true;
-    rec.interimResults = true;
+    rec.interimResults = false;
     rec.lang = "ja-JP";
     rec.maxAlternatives = 3;
 
